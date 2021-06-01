@@ -1,14 +1,12 @@
-"use strict";
-var todoLists = [
-    { id: 1, name: "Run", isDone: false },
-    { id: 2, name: "Badminton", isDone: false },
-    { id: 3, name: "Eat", isDone: true },
-];
-var listContainer = document.querySelector("ul");
-todoLists.forEach(function (todoItem) {
-    var li = document.createElement("li");
-    li.innerText = todoItem.name;
-    if (todoItem.isDone)
-        li.classList.add("done");
-    listContainer.append(li);
+import { TodoListManager } from "./classes/TodoListManager.js";
+const listContainer = document.querySelector("ul");
+const manager = new TodoListManager([], listContainer);
+manager.renderAllTodos();
+const titleInput = document.getElementById("title");
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (titleInput.value)
+        manager.addTodo(titleInput.value);
+    titleInput.value = "";
 });

@@ -1,19 +1,14 @@
-type Todo = {
-  id: number;
-  name: string;
-  isDone: boolean;
-};
-
-const todoLists: Todo[] = [
-  { id: 1, name: "Run", isDone: false },
-  { id: 2, name: "Badminton", isDone: false },
-  { id: 3, name: "Eat", isDone: true },
-];
+import { TodoListManager } from "./classes/TodoListManager.js";
 
 const listContainer = document.querySelector("ul")!;
-todoLists.forEach((todoItem) => {
-  const li = document.createElement("li");
-  li.innerText = todoItem.name;
-  if (todoItem.isDone) li.classList.add("done");
-  listContainer.append(li);
+const manager = new TodoListManager([], listContainer);
+
+manager.renderAllTodos();
+
+const titleInput = document.getElementById("title") as HTMLInputElement;
+const form = document.querySelector("form")!;
+form.addEventListener("submit", (e: Event) => {
+  e.preventDefault();
+  if (titleInput.value) manager.addTodo(titleInput.value);
+  titleInput.value = "";
 });
